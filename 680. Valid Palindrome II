@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        int sz=s.size(),pos1,pos2;
+        string ok="";
+        ok=s;
+        reverse(ok.begin(),ok.end());
+        for(int i=0,j=sz-1;i<(sz/2);i++,j--)
+        {
+            if(s[i]!=s[j])
+            {
+                pos1=i;
+                pos2=j;
+                break;
+            }
+        }
+        string aquire="",aquire1="",rev="",rev1="";
+        for(int i=0;i<sz;i++)
+        {
+            if(pos1==i) continue;
+            else aquire+=s[i];
+        }
+        rev=aquire;
+        reverse(rev.begin(),rev.end());
+        for(int i=0;i<sz;i++)
+        {
+            if(pos2==i) continue;
+            else aquire1+=s[i];
+        }
+        rev1=aquire1;
+        reverse(rev1.begin(),rev1.end());
+        if(s==ok || rev==aquire || rev1==aquire1)
+            return true;
+        else
+            return false;
+    }
+};
