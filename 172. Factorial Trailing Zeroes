@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int base=5,ans=0;
+        while(1)
+        {
+            int bro=n/base;
+            if(bro<1) break;
+            ans+=bro;
+            base*=5;
+        }
+        return ans;
+    }
+};
