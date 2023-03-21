@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        set<string>st;
+        bool flag=true;
+        stringstream ss(s);
+        string word;
+        map<char,string> mp;
+        map<char,string>::iterator it;
+        int pos=0;
+        while(ss>>word)
+        {
+            it=mp.find(pattern[pos]);
+            if(it==mp.end()) mp[pattern[pos]]=word;
+            else
+            {
+                if(it->second!=word) flag=false;
+            }
+            pos++;
+            st.insert(word);
+        }
+        if(mp.size()!=st.size() || pattern.size()>pos) flag=false;
+        return flag;
+    }
+};
