@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        int vis[28],index=-1;
+        memset(vis,0,sizeof vis);
+        for(int i=0;i<s.size();i++)
+            vis[s[i]-'a']++;
+        for(int i=0;i<s.size();i++)
+        {
+            if(vis[s[i]-'a']==1)
+            {
+                index=i;
+                break;
+            }
+        }
+        return index;
+    }
+};
