@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        bool vis[280],next[280],flag=true;
+        map<char,char> mp;
+        map<char,char> ::iterator it;
+        memset(vis,false,sizeof vis);
+        memset(next,false,sizeof next);
+        for(int i=0;i<s.size();i++)
+        {
+            if(!vis[s[i]]) 
+            {
+                if(!next[t[i]])
+                {
+                    mp[s[i]]=t[i];
+                    vis[s[i]]=true;
+                    next[t[i]]=true;
+                }
+                else flag=false;
+            }
+            else if(vis[s[i]])
+            {
+                it=mp.find(s[i]);
+                if(it->second!=t[i]) flag=false;
+            }
+        }
+        return flag;
+    }
+};
