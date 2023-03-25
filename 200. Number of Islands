@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int X[6]={-1,0,0,1};
+        int Y[6]={0,-1,1,0};
+        int sz_r=grid.size();
+        int sz_c=grid[0].size();
+        int cnt=0;
+
+        for(int i=0;i<grid.size();i++)
+           for(int j=0;j<grid[0].size();j++)
+           {
+               if(grid[i][j]=='1')
+               {
+                   cnt++;
+                   queue< pair<int,int> >q;
+                   q.push({i,j});
+                   grid[i][j]='0';
+
+                   while(!q.empty())
+                   {
+                       pair<int,int> p=q.front();
+                       q.pop();
+
+                       for(int i=0;i<4;i++)
+                       {
+                           int fx=p.first+X[i];
+                           int fy=p.second+Y[i];
+
+                           if((fx>=0 && fx<sz_r) && (fy>=0 && fy<sz_c) && grid[fx][fy]=='1')
+                           {
+                               grid[fx][fy]='0';
+                               q.push({fx,fy});
+                           }
+                       }
+                   }
+               }
+           }
+        return cnt;
+    }
+};
