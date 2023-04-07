@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int numEnclaves(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        int ans=0;
+
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(grid[i][j]==1)
+                {
+                    stack<pair<int,int> >stk;
+
+                    bool flag=true;
+                    int cnt=0;
+                    stk.push({i,j});
+
+                    while(!stk.empty())
+                    {
+                        pair<int,int>p=stk.top();
+                        stk.pop();
+
+                        int fx=p.first;
+                        int fy=p.second;
+
+                        if(fx<0 || fx>=m || fy<0 || fy>=n)
+                        {
+                            flag=false;
+                            continue;
+                        }
+
+                        if(grid[fx][fy]==0) continue;
+
+                        grid[fx][fy]=0;
+                        cnt++;
+
+                        stk.push({fx-1,fy});
+                        stk.push({fx,fy-1});
+                        stk.push({fx,fy+1});
+                        stk.push({fx+1,fy});
+                    }
+
+                    if(flag) ans+=cnt;
+                }
+        return ans;
+    }
+};
