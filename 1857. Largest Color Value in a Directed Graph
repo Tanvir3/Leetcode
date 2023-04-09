@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int largestPathValue(string colors, vector<vector<int>>& edges) {
+
+        int n=colors.size();
+        vector< vector<int> >graph(n);
+        queue<int>q;
+        vector<int>indegree(n,0);
+        vector<vector<int> >count(n,vector<int>(26,0));
+
+        for(int i=0;i<edges.size();i++)
+        {
+            graph[edges[i][0]].push_back(edges[i][1]);
+            indegree[edges[i][1]]++;
+        }
+
+        for(int i=0;i<n;i++)
+            if(!indegree[i]) 
+                q.push(i);
+        
+        int ans=0;
+        int visited=0;
+
+        while(!q.empty())
+        {
+            int u=q.front();
+            q.pop();
+
+            visited++;
+            ans=max(ans,++count[u][colors[u]-'a']);
+
+            for(int i=0;i<graph[u].size();i++)
+            {
+                int v=graph[u][i];
+                indegree[v]--;
+                if(indegree[v]==0) q.push(v);
+
+                for(int j=0;j<26;j++)
+                      count[v][j]=max(count[u][j],count[v][j]);
+            }
+        }
+
+        if(visited != n) return -1;
+        return ans;
+    }
+};
